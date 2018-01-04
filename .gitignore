@@ -12,6 +12,5 @@ server/routes/**
 server/utils/**
 server/models/Todo.js
 .eslintrc.json
-package.json
 .babelrc
 example.js

@@ -9,6 +9,7 @@ import bodyParser from 'body-parser';
 import route from './routes/routes';
 
 dotenv.config();
+mongoose.Promise = global.Promise;
 
 if (process.env.NODE_ENV !== 'production') {
   if (process.env.NODE_ENV === 'test') {
@@ -20,7 +21,7 @@ if (process.env.NODE_ENV !== 'production') {
   mongoose.connect(process.env.MONGODB_URL_PRO);
 }
 
-const port = parseInt(process.env.PORT, 10) || 3000;
+const port = parseInt(process.env.PORT, 10) || 8000;
 const app = express();
 
 app.use(morgan('dev'));

@@ -4,16 +4,31 @@
     "description": "a simple todoapp with redux",
     "main": "index.js",
     "scripts": {
-        "test": "start",
-        "start:dev": "nodemon --exec babel-node ./server/server.js"
+        "heroku-prebuild": "npm install --only=dev",
+        "test": "NODE_ENV=test nyc --reporter=text --reporter=html --reporter=lcov mocha server/test --timeout 40000 --exit --require babel-core/register && npm run coverage-report",
+        "start:dev": "nodemon --exec babel-node ./server/server.js",
+        "start": "NODE_ENV=production nodemon --exec babel-node ./server/server.js",
+        "heroku-postbuild": "webpack --config ./webpack.prod.js",
+        "start:prod": "npm run heroku-postbuild && npm start",
+        "coverage-report": "cat ./coverage/lcov.info | coveralls",
+        "end": "nightwatch",
+        "e2e-setup": "selenium-standalone install"
     },
     "author": "Qudus YEKEEN",
     "license": "MIT",
     "devDependencies": {
+        "babel-register": "^6.26.0",
+        "cat": "^0.2.0",
+        "coveralls": "^3.0.0",
         "eslint-config-airbnb": "^16.1.0",
         "eslint-plugin-import": "^2.8.0",
         "eslint-plugin-jsx-a11y": "^6.0.3",
-        "eslint-plugin-react": "^7.5.1"
+        "eslint-plugin-react": "^7.5.1",
+        "istanbul": "^0.4.5",
+        "mocha": "^4.1.0",
+        "mocha-lcov-reporter": "^1.3.0",
+        "nyc": "^11.4.1",
+        "should": "^13.2.0"
     },
     "dependencies": {
         "babel-cli": "^6.26.0",
@@ -25,11 +40,13 @@
         "bcrypt": "^1.0.3",
         "body-parser": "^1.18.2",
         "capitalize": "^1.0.0",
+        "chai": "^4.1.2",
+        "chai-http": "^3.0.0",
         "dotenv": "^4.0.0",
         "express": "^4.16.2",
         "express-validator": "^4.3.0",
         "jsonwebtoken": "^8.1.0",
-        "mongoose": "^5.0.0-rc1",
+        "mongoose": "^4.10.8",
         "morgan": "^1.9.0",
         "nodemailer": "^4.4.1",
         "nodemon": "^1.14.7"

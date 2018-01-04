@@ -9,6 +9,7 @@ import bodyParser from 'body-parser';
 import route from './routes/routes';
 
 dotenv.config();
+mongoose.Promise = global.Promise;
 
 if (process.env.NODE_ENV !== 'production') {
   if (process.env.NODE_ENV === 'test') {

@@ -1,4 +1,4 @@
-// import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt';
 import capitalize from 'capitalize';
 // import crypto from 'crypto';
 import dotenv from 'dotenv';
@@ -79,6 +79,61 @@ class UserController {
                 }
               });
           }
+        });
+    }
+  }
+
+  /**
+  * * Routes: POST: /api/v1/signin
+  * @param {any} req user request object
+  * @param {any} res server response
+  * @return {void} json server response
+  */
+  static signIn(req, res) {
+    if ((!req.body.email) || (!req.body.password)) {
+      res.status(400).json({
+        error: 'Email or password must not be empty',
+        success: false
+      });
+    } else {
+      User.findOne({
+        email: req.body.email
+      })
+        .exec((err, response) => {
+          if (err) {
+            return res.status(500).json({
+              success: false,
+              error: 'internal server error'
+            });
+          }
+          if (!response) {
+            return res.status(404).json({
+              success: false,
+              error: 'User does not exist'
+            });
+          }
+          // compare passwords
+          if (!bcrypt.compareSync(req.body.password, response.password)) {
+            return res.status(401).json({
+              success: false,
+              error: 'Email or password is invalid'
+            });
+          }
+          const userDetails = {
+            username: response.username,
+            email: response.email
+          };
+          const userEncode = {
+            username: response.username,
+            email: response.email,
+            userId: response._id
+          };
+          return res.status(200).json({
+            message: 'Sign in successful',
+            success: true,
+            token: createToken(userEncode),
+            userDetails
+          });
         });
     }
   }

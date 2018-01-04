@@ -1,0 +1,37 @@
+{
+    "name": "index.js",
+    "version": "1.0.0",
+    "description": "a simple todoapp with redux",
+    "main": "index.js",
+    "scripts": {
+        "test": "start",
+        "start:dev": "nodemon --exec babel-node ./server/server.js"
+    },
+    "author": "Qudus YEKEEN",
+    "license": "MIT",
+    "devDependencies": {
+        "eslint-config-airbnb": "^16.1.0",
+        "eslint-plugin-import": "^2.8.0",
+        "eslint-plugin-jsx-a11y": "^6.0.3",
+        "eslint-plugin-react": "^7.5.1"
+    },
+    "dependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-core": "^6.26.0",
+        "babel-loader": "^7.1.2",
+        "babel-polyfill": "^6.26.0",
+        "babel-preset-env": "^1.6.1",
+        "babel-preset-es2015": "^6.24.1",
+        "bcrypt": "^1.0.3",
+        "body-parser": "^1.18.2",
+        "capitalize": "^1.0.0",
+        "dotenv": "^4.0.0",
+        "express": "^4.16.2",
+        "express-validator": "^4.3.0",
+        "jsonwebtoken": "^8.1.0",
+        "mongoose": "^5.0.0-rc1",
+        "morgan": "^1.9.0",
+        "nodemailer": "^4.4.1",
+        "nodemon": "^1.14.7"
+    }
+}

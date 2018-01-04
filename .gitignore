@@ -4,7 +4,6 @@ coverage
 .nyc_output
 htm.html
 reports
-.eslintrc.json
 server/controllers/**
 server/helpers/**
 server/middlewares/**
@@ -12,5 +11,4 @@ server/helpers/**
 server/routes/**
 server/utils/**
 server/models/Todo.js
-.eslintrc.json
 example.js

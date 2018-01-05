@@ -1,5 +1,7 @@
 export default {
   user: {
+    hash: 'abcdef567487364784',
+    userEmail: 'bola@gmail.com',
     email: 'quduskunle@gmail.com',
     wrongPass: 'okelebaba',
     secondEmail: 'kola@gmail.com',

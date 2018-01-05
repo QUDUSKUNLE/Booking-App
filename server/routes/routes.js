@@ -13,7 +13,7 @@ const route = express.Router();
  * Route for signup users
  */
 route.post(
-  '/api/v1/signup',
+  '/signup',
   validateRequest,
   UserController.signUp
 );
@@ -22,7 +22,7 @@ route.post(
  * Route for signin users
  */
 route.post(
-  '/api/v1/signin',
+  '/signin',
   validateRequest,
   UserController.signIn
 );
@@ -31,7 +31,7 @@ route.post(
  * Route for users to request for password reset
  */
 route.post(
-  '/api/v1/resetpasswords',
+  '/resetpasswords',
   validateRequest,
   UserController.resetPassword
 );
@@ -40,7 +40,7 @@ route.post(
  * Route for users to update password
  */
 route.put(
-  '/api/v1/updatepasswords/:hash',
+  '/updatepasswords/:hash',
   validateRequest,
   UserController.updatePassword
 );

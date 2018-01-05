@@ -243,4 +243,83 @@ describe('User Controller Test', () => {
         });
     });
   });
+
+  // Test reset password route
+  describe('User reset password route', () => {
+    it('should return status 400 if email is not defined', (done) => {
+      chai.request(server)
+        .post('/api/v1/resetpasswords')
+        .type('application/json')
+        .send({})
+        .end((err, res) => {
+          res.should.have.status(400);
+          assert.equal(false, res.body.success);
+          res.body.should.have.property('error')
+            .equals('Email must not be empty');
+          done();
+        });
+    });
+    it('should return status 404 if user email does not exist', (done) => {
+      chai.request(server)
+        .post('/api/v1/resetpasswords')
+        .type('application/json')
+        .send({ email: user.userEmail })
+        .end((err, res) => {
+          res.should.have.status(404);
+          assert.equal(false, res.body.success);
+          res.body.should.have.property('error')
+            .equals('User does not exist');
+          done();
+        });
+    });
+    it('should return status 200 if reset password is successful', (done) => {
+      chai.request(server)
+        .post('/api/v1/resetpasswords')
+        .type('application/json')
+        .send({ email: user.email })
+        .end((err, res) => {
+          res.should.have.status(200);
+          assert.equal(true, res.body.success);
+          res.body.should.have.property('message')
+            .equals('Reset password email sent successfully');
+          done();
+        });
+    });
+  });
+
+  // Test for update password route
+  describe('User update password route', () => {
+    it('should return status 400 when new password is not defined', (done) => {
+      const { hash } = { user };
+      chai.request(server)
+        .put(`/api/v1/updatepasswords/${hash}`)
+        .type('application/json')
+        .send({})
+        .end((err, res) => {
+          res.should.have.status(400);
+          assert.equal(false, res.body.success);
+          res.body.should.have.property('error')
+            .equals('New password or confirm password must not be empty');
+          done();
+        });
+    });
+
+    it('should return status 404 when does not exist', (done) => {
+      const { hash } = { user };
+      chai.request(server)
+        .put(`/api/v1/updatepasswords/${hash}`)
+        .type('application/json')
+        .send({
+          newPassword: user.userEmail,
+          confirmPassword: user.userEmail
+        })
+        .end((err, res) => {
+          res.should.have.status(404);
+          assert.equal(false, res.body.success);
+          res.body.should.have.property('error')
+            .equals('User does not exist');
+          done();
+        });
+    });
+  });
 });

@@ -27,4 +27,22 @@ route.post(
   UserController.signIn
 );
 
+/**
+ * Route for users to request for password reset
+ */
+route.post(
+  '/api/v1/resetpasswords',
+  validateRequest,
+  UserController.resetPassword
+);
+
+/**
+ * Route for users to update password
+ */
+route.put(
+  '/api/v1/updatepasswords/:hash',
+  validateRequest,
+  UserController.updatePassword
+);
+
 export default route;

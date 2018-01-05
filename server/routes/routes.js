@@ -18,4 +18,13 @@ route.post(
   UserController.signUp
 );
 
+/**
+ * Route for signin users
+ */
+route.post(
+  '/api/v1/signin',
+  validateRequest,
+  UserController.signIn
+);
+
 export default route;

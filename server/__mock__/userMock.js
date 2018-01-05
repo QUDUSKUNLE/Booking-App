@@ -1,7 +1,16 @@
 export default {
   user: {
+    email: 'quduskunle@gmail.com',
+    wrongPass: 'okelebaba',
+    secondEmail: 'kola@gmail.com',
+    password: 'kolawole',
+    username: 'kolawole',
     signUp: {
       username: 'Qudus YEKEEN',
+      email: 'quduskunle@gmail.com',
+      password: 'password'
+    },
+    signIn: {
       email: 'quduskunle@gmail.com',
       password: 'password'
     },

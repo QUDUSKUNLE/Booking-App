@@ -177,4 +177,70 @@ describe('User Controller Test', () => {
         });
     });
   });
+
+  // Test sign in route
+  describe('User signin route', () => {
+    it('should return status 400 if email or password not defined', (done) => {
+      chai.request(server)
+        .post('/api/v1/signin')
+        .type('application/json')
+        .send({ username: user.username })
+        .end((err, res) => {
+          res.should.have.status(400);
+          assert.equal(false, res.body.success);
+          res.body.should.have.property('error')
+            .equals('Email or password must not be empty');
+          done();
+        });
+    });
+
+    it('should return status 404 if user does not exist', (done) => {
+      chai.request(server)
+        .post('/api/v1/signin')
+        .type('application/json')
+        .send({
+          email: user.secondEmail,
+          password: user.password
+        })
+        .end((err, res) => {
+          res.should.have.status(404);
+          assert.equal(false, res.body.success);
+          res.body.should.have.property('error')
+            .equals('User does not exist');
+          done();
+        });
+    });
+
+    it('should return status 401 if user sends wrong password', (done) => {
+      chai.request(server)
+        .post('/api/v1/signin')
+        .type('application/json')
+        .send({
+          email: user.email,
+          password: user.wrongPass,
+        })
+        .end((err, res) => {
+          res.should.have.status(401);
+          assert.equal(false, res.body.success);
+          res.body.should.have.property('error')
+            .equals('Email or password is invalid');
+          done();
+        });
+    });
+
+    it('should return status 200 if a user sign in successfully', (done) => {
+      chai.request(server)
+        .post('/api/v1/signin')
+        .type('application/json')
+        .send(user.signIn)
+        .end((err, res) => {
+          res.should.have.status(200);
+          assert.equal(true, res.body.success);
+          assert.equal(res.body.userDetails.email, user.email);
+          res.body.should.have.property('message')
+            .equals('Sign in successful');
+          done();
+        });
+    });
+  });
 });

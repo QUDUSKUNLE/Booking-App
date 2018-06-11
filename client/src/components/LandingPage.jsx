@@ -49,11 +49,11 @@ export default class LandingPage extends React.Component {
         <Register signUpRequest={AppActions.signUpRequest} />
         <div className="container">
           <div className="logo">
-            <h4>IdeaBox</h4>
+            <h4>BookIT</h4>
           </div>
           <div className="col s12 flex-center">
             <div className="center-align">
-              <h3>Let Your Ideas Rule The World</h3>
+              <h3>Book Your Appointment Now</h3>
               <div className="container">
                 <a
                   href="##"

@@ -65,21 +65,6 @@ export default class RegisterForm extends React.Component {
             >
               <div className="input-field col s12">
                 <input
-                  value={this.state.username}
-                  onChange={this.onChange}
-                  name="username"
-                  type="text"
-                  id="reg_username"
-                  className="validate header username"
-                  required
-                />
-                <label
-                  htmlFor="username"
-                >Username
-                </label>
-              </div>
-              <div className="input-field col s12">
-                <input
                   value={this.state.email}
                   onChange={this.onChange}
                   name="email"

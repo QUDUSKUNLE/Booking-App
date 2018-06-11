@@ -1,7 +1,7 @@
 import express from 'express';
 import UserController from '../controllers/UserController';
 import validateRequest from '../middlewares/validateRequest';
-// import verifyToken from '../middlewares/verifyToken';
+import verifyToken from '../middlewares/verifyToken';
 
 
 /**
@@ -41,6 +41,7 @@ route.post(
  */
 route.put(
   '/updatepasswords/:hash',
+  verifyToken,
   validateRequest,
   UserController.updatePassword
 );

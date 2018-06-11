@@ -25,10 +25,10 @@ app.use('/api/v1', route);
 
 if (process.env.NODE_ENV !== 'production') {
   if (process.env.NODE_ENV === 'test') {
-    mongoose.connect(process.env.MONGODB_URL);
+    mongoose.connect(process.env.MONGODB_URL, { useMongoClient: true });
   } else {
     // Development configuration
-    mongoose.connect(process.env.MONGODB_URL_DEV);
+    mongoose.connect(process.env.MONGODB_URL_DEV, { useMongoClient: true });
     const config = require('../webpack.dev');
     // *** webpack compiler ***
     const compiler = webpack(config);
@@ -46,7 +46,7 @@ if (process.env.NODE_ENV !== 'production') {
   }
 } else {
   // Production configuration
-  mongoose.connect(process.env.MONGODB_URL_PRO);
+  mongoose.connect(process.env.MONGODB_URL_PRO, { useMongoClient: true });
   app.use(express.static(path.join(__dirname, '../client/build')));
   app.get('*', (req, res) =>
     res.sendFile(`${process.cwd()}/client/build/index.html`));

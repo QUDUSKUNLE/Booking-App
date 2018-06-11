@@ -7,16 +7,6 @@ const validateRequestBody = (request) => {
   if (Object.hasOwnProperty.call(request, 'body')) {
     for (const key in request.body) {
       switch (key) {
-        case 'username':
-          request.check('username', 'Username field cannot be empty')
-            .trim()
-            .notEmpty()
-            .matches(/\w/);
-          request.check('username', 'Username must be more than 2 characters')
-            .trim()
-            .isLength(2, 50);
-          break;
-
         case 'email':
           request.check('email', 'Email address field cannot be empty')
             .trim()

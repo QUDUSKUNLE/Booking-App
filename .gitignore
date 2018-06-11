@@ -5,3 +5,4 @@ coverage
 htm.html
 reports
 example.js
+client/build/*

@@ -20,9 +20,9 @@ class UserController {
    * @return {void} json server response
    */
   static signUp(req, res) {
-    if ((!req.body.username) || (!req.body.email) || (!req.body.password)) {
+    if ((!req.body.email) || (!req.body.password)) {
       res.status(400).json({
-        error: 'Either email, password or username must not be empty',
+        error: 'Either email, password must not be empty',
         success: false
       });
     } else {
@@ -37,47 +37,31 @@ class UserController {
               success: false
             });
           } else {
-            User.findOne({
-              username: capitalize(req.body.username)
-            })
-              .exec()
-              .then((username) => {
-                if (username) {
-                  res.status(409).json({
-                    error: 'Username already exist',
-                    success: false
-                  });
-                } else {
-                  const user = new User({
-                    username: capitalize(req.body.username),
-                    password: req.body.password,
-                    email: req.body.email
-                  });
-                  user.save((err, newUser) => {
-                    if (err) {
-                      return res.status(500).json({
-                        success: false,
-                        message: err
-                      });
-                    }
-                    const userDetails = {
-                      username: newUser.username,
-                      email: newUser.email
-                    };
-                    const userEncode = {
-                      username: newUser.username,
-                      email: newUser.email,
-                      userId: newUser._id
-                    };
-                    return res.status(201).json({
-                      message: 'Sign up successful',
-                      success: true,
-                      token: createToken(userEncode),
-                      userDetails
-                    });
-                  });
-                }
+            const user = new User({
+              password: req.body.password,
+              email: req.body.email
+            });
+            user.save((err, newUser) => {
+              if (err) {
+                return res.status(500).json({
+                  success: false,
+                  message: err
+                });
+              }
+              const userDetails = {
+                email: newUser.email
+              };
+              const userEncode = {
+                email: newUser.email,
+                userId: newUser._id
+              };
+              return res.status(201).json({
+                message: 'Sign up successful',
+                success: true,
+                token: createToken(userEncode),
+                userDetails
               });
+            });
           }
         });
     }

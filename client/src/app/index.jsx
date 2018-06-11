@@ -16,7 +16,7 @@ const configureStore = (state = initialState) => createStore(
   state,
   compose(
     middleware,
-    window.devToolsExtension ? window.devToolsExtension() : f => f
+    window.devToolsExtension ? window.devToolsExtension() : func => func
   )
 );
 
